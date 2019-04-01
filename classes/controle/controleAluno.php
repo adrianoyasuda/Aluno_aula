@@ -34,8 +34,16 @@
                    //echo "ID_ALUNO = ".$dados[1]." / ID_AULA = ".$dados[2]." / VALOR = ".$value."<br>";
                     
                      $dados_evento = array("fk_aluno" => $dados[1], "fk_evento" => $dados[2], "falta" => $value);
+
+
+                     $frequencia = modeloFrequencia::getFrequencias();
+
+                    modeloFrequencia::upFrequencia($id, $dados_evento);
+                    $_SESSION['MSGBOX_MSG'] = "Os dados do Evento foram alterados no sistema!";
+                    
                 }
             }
+
         }
 
         public static function loadData(){
