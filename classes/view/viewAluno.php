@@ -12,7 +12,7 @@
   <head>
 
     <link rel="icon" href="img/favicon.ico">
-    <title>SiGer</title>
+    <title>SisLanF</title>
 
     <!-- Bootstrap URL - CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">

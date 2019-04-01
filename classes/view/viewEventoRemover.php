@@ -12,7 +12,7 @@
   <head>
 
     <link rel="icon" href="img/favicon.ico">
-    <title>SiGer</title>
+    <title>SisLanF</title>
 
     <!-- Bootstrap URL - CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -34,7 +34,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand">[ SisGer ] Sistema Gerenciador de Certificado</a>
+          <a class="navbar-brand">[ SisLanF ] Sistema de Lançamento de Faltas</a>
         </div>
   <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -50,7 +50,7 @@
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <h3> Deseja remover o Evento? <br><br><b><?php echo $_GET['nome']; ?></b></h3>
+                        <h3> Deseja remover a Aula ? <br><br><b><?php echo $_GET['conteudo']; ?></b></h3>
                     </div>
                     <div class="modal-footer">
 

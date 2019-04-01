@@ -72,7 +72,7 @@
             else {
 
                 $url = "../view/viewEventoRemover.php?id=$evento->id";
-                $url .= "&nome=$evento->nome";
+                $url .= "&conteudo=$evento->conteudo";
                 echo "<script>window.location='".$url."'</script>";
             }
         }

@@ -14,8 +14,6 @@
 
             $dados = explode("/", $_POST['acao']);
 
-            print_r($_POST);
-
             if(strcmp($dados[0], "confirmar") == 0) {
                 self::confirmar($dados[1]);
             }
@@ -26,7 +24,18 @@
 
 
         public static function confirmar($id) {
+            /*print_r($_POST);*/
 
+            foreach ($_POST as $campo => $value) {
+
+                $dados = explode("_", $campo);
+
+                if(strcmp($dados[0], "cb") == 0) {
+                   //echo "ID_ALUNO = ".$dados[1]." / ID_AULA = ".$dados[2]." / VALOR = ".$value."<br>";
+                    
+                     $dados_evento = array("fk_aluno" => $dados[1], "fk_evento" => $dados[2], "falta" => $value);
+                }
+            }
         }
 
         public static function loadData(){
@@ -57,7 +66,8 @@
 
                     while ($objEvento = $evento->fetchObject()) {
                         echo "<td>";
-                            echo "<select name='$objAluno->id$objEvento->data' >";
+                            echo "<select name='cb_".$objAluno->id."_".$objEvento->id."' >";
+                                echo "<option value='0'>0</option>";
                                 echo "<option value='1'>1</option>";
                                 echo "<option value='2'>2</option>";
                             echo "</select>";
