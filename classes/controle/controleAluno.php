@@ -26,24 +26,60 @@
         public static function confirmar($id) {
             /*print_r($_POST);*/
 
+            $backup;
+            $cont = 0;
+            $somfalt = 0;
+            $quantAulas = 0;
+
             foreach ($_POST as $campo => $value) {
 
                 $dados = explode("_", $campo);
 
+
                 if(strcmp($dados[0], "cb") == 0) {
                    //echo "ID_ALUNO = ".$dados[1]." / ID_AULA = ".$dados[2]." / VALOR = ".$value."<br>";
                     
-                     $dados_evento = array("fk_aluno" => $dados[1], "fk_evento" => $dados[2], "falta" => $value);
+                    $dados_evento = array("fk_aluno" => $dados[1], "fk_evento" => $dados[2], "falta" => $value);
 
+                    //modeloFrequencia::addFrequencia($dados_evento);
 
-                     $frequencia = modeloFrequencia::getFrequencias();
+                    $frequencia = modeloFrequencia::findFrequencia($dados[1], $dados[2]);
 
-                    modeloFrequencia::upFrequencia($id, $dados_evento);
-                    $_SESSION['MSGBOX_MSG'] = "Os dados do Evento foram alterados no sistema!";
-                    
+                    if (empty($frequencia)) {
+                        modeloFrequencia::addFrequencia($dados_evento);
+                    }
+                    else{
+                        modeloFrequencia::upFrequencia($frequencia->id, $dados_evento);
+                    }
+
+                    $flag = 1;
+
+                    if(empty($backup)){
+                        $backup  = $dados[1];
+                        $somfalt = $value;
+                        $cont++;
+                        $flag = 0;
+
+                    }
+                    elseif ($backup == $dados[1]) {
+                        $backup = $dados[1];
+                        $somfalt = $somfalt+$value;
+                        $cont++;
+                        $quantAulas = $cont;
+                        $flag = 0;
+                    }
+
+                    elseif($flag == 1){
+                        echo $somfalt;
+                        $backup = $dados[1];
+                        $somfalt = 0;
+                        $cont = 1;
+                        $qtdbackup = $quantAulas;
+                        echo "--";
+                        
+                    }
                 }
             }
-
         }
 
         public static function loadData(){
@@ -75,9 +111,24 @@
                     while ($objEvento = $evento->fetchObject()) {
                         echo "<td>";
                             echo "<select name='cb_".$objAluno->id."_".$objEvento->id."' >";
-                                echo "<option value='0'>0</option>";
-                                echo "<option value='1'>1</option>";
-                                echo "<option value='2'>2</option>";
+
+                                $valor = modeloFrequencia::findFrequencia($objAluno->id, $objEvento->id);
+
+                                if($valor->falta == 0){
+                                    echo "<option value='0' selected >0</option>";
+                                    echo "<option value='1'>1</option>";
+                                    echo "<option value='2'>2</option>";
+                                }
+                                elseif ($valor->falta == 1) {
+                                    echo "<option value='0'>0</option>";
+                                    echo "<option value='1' selected >1</option>";
+                                    echo "<option value='2'>2</option>";
+                                }
+                                elseif ($valor->falta == 2) {
+                                    echo "<option value='0'>0</option>";
+                                    echo "<option value='1'>1</option>";
+                                    echo "<option value='2' selected >2</option>";
+                                }
                             echo "</select>";
                         echo "</td>";
                     }

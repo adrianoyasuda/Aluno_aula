@@ -8,12 +8,12 @@
 
         public static function getFrequencias() {
 
-            return parent::selectAll(self::$tabela, "ORDER BY id");
+            return parent::selectAll(self::$tabela, "ORDER BY fk_aluno");
         }
 
-        public static function findFrequencia($id) {
+        public static function findFrequencia($fk_aluno, $fk_evento) {
 
-            return parent::selectFind(self::$tabela, "id = $id");
+            return parent::selectFind(self::$tabela, "fk_aluno = $fk_aluno AND fk_evento = $fk_evento");
         }
 
         public static function addFrequencia($dados_evento) {
