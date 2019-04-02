@@ -6,6 +6,8 @@
 
     class controleAluno {
 
+        public $total;
+
         public static function index() {
             echo "<script>window.location='../view/viewAluno.php'</script>";
         }
@@ -51,39 +53,13 @@
                     else{
                         modeloFrequencia::upFrequencia($frequencia->id, $dados_evento);
                     }
-
-                    $flag = 1;
-
-                    if(empty($backup)){
-                        $backup  = $dados[1];
-                        $somfalt = $value;
-                        $cont++;
-                        $flag = 0;
-
-                    }
-                    elseif ($backup == $dados[1]) {
-                        $backup = $dados[1];
-                        $somfalt = $somfalt+$value;
-                        $cont++;
-                        $quantAulas = $cont;
-                        $flag = 0;
-                    }
-
-                    elseif($flag == 1){
-                        echo $somfalt;
-                        $backup = $dados[1];
-                        $somfalt = 0;
-                        $cont = 1;
-                        $qtdbackup = $quantAulas;
-                        echo "--";
-                        
-                    }
                 }
             }
         }
 
         public static function loadData(){
             $evento = modeloEvento::getEventos();
+
 
             while ($objEvento = $evento->fetchObject()) {
                 echo "<th>".$objEvento->data."</th>";
@@ -92,6 +68,17 @@
 
         public static function loadTabelaAlunos($caso) {
             $alunos = modeloAluno::getAlunos();
+            $freq = 0;
+
+
+            $evento = modeloEvento::getEventos();
+
+            $total = 0;
+
+            while ($objEvento = $evento->fetchObject()) {
+                $total = $total + 2;
+            }
+
 
             while($objAluno = $alunos->fetchObject()) {
             	echo "<tr>";
@@ -106,6 +93,7 @@
                     }
 					echo "<td>".$objAluno->nome."</td>";
                     
+
                     $evento = modeloEvento::getEventos();
 
                     while ($objEvento = $evento->fetchObject()) {
@@ -129,12 +117,23 @@
                                     echo "<option value='1'>1</option>";
                                     echo "<option value='2' selected >2</option>";
                                 }
+
                             echo "</select>";
                         echo "</td>";
-                    }
+
+                        $freq = $valor->falta + $freq;
+
                         
+                    }
+
+                    $colunas = $total/2;
+                    $aux = 100/$total*$freq;
+                    $freq = $aux;
+                    $porct = explode(".", $freq);
+                    $freq = 0;
+
                     if($caso == 0){
-    					echo "<td>".$objAluno->frequencia."%</td>";
+    					echo "<td>".$porct[0]."%</td>";
                     }
 				echo "</tr>";
     		}
