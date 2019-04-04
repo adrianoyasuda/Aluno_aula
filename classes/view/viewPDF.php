@@ -1,35 +1,43 @@
 <?php
-	include_once '/../../recursos/fpdf/fpdf.php';
+	include_once '../../recursos/fpdf/fpdf.php';
 
-	// Instancia o objeto
 	$pdf = new FPDF("P", "mm", "A4");
-	// Abre o documento
 	$pdf->Open();
-	// Adiciona uma página
 	$pdf->AddPage();
-	// Adiciona uma imagem na posição e tamanho especificados
-	$pdf->Image('img/botafogo.jpg', 83, 33, 43, 47);
-	// Define a espessura e desenha duas linha
+	$pdf->Image('../../recursos/img/Logo.png', 28, 50, 160, 25);
 	$pdf->SetLineWidth(0.4);
-	$pdf->Line(5, 28, 204, 28);
-	$pdf->Line(5, 85, 204, 85);
-	// Define a fonte do texto, a posição 'x' e 'y' da célula que será escrita
-	$pdf->SetFont("Arial","B", 34);
-	$pdf->SetY(10); $pdf->SetX(10);
-	// Adiciona a célula/texto ao documento - alinhamento centralizado
-	$pdf->Cell(188, 15, "BOTAFOGO", 0, 0, 'C');
-	// Define a fonte do texto, a posição 'x' e 'y' da célula que será escrita
-	$pdf->SetFont("Arial","B", 26);
-	$pdf->SetY(90); $pdf->SetX(10);
-	// Define o texto da célula - utilliza função iconv() para obter corretmente os acentos do texto
-	$texto = iconv("utf-8", "iso-8859-1", "Campeão desde 1910");
-	// Adiciona a célula/texto ao documento - alinhamento centralizado
-	$pdf->Cell(188, 15, $texto, 0, 0, 'C');
-	// Define fonte / Insere um texto de maneira direta, sem utilizar célula
-	$pdf->SetFont("Arial","B", 12);
-	$pdf->Text(52, 120, iconv("utf-8","iso-8859-1","Densenvolvimento Web II - Gil Eduardo de Andrade"));
+	$pdf->Line(28, 85, 188, 85);
 
-	// Gera o documento PDF
+	
+
+	$pdf->SetFont("Arial","B", 18);
+	$pdf->SetY(90); $pdf->SetX(10);
+	$texto = iconv("utf-8", "iso-8859-1", "RELATÓRIO DE FREQUÊNCIA");
+	$pdf->Cell(192, 15, $texto, 0, 0, 'C');
+
+	$pdf->SetFont("Arial","B", 15);
+	$pdf->SetY(100); $pdf->SetX(10);
+	$aluno = iconv("utf-8", "iso-8859-1", "Nome do Aluno");
+	$pdf->Cell(192, 15, $aluno, 0, 0, 'C');
+
+	$pdf->SetFont("Arial","B", 12);
+	$pdf->SetY(120); $pdf->SetX(10);
+	$freq = iconv("utf-8", "iso-8859-1", "Frequência Final: 0%");
+	$pdf->Cell(192, 15, $freq, 0, 0, 'C');
+
+	$pdf->SetFont("Arial","B", 12);
+	$pdf->Text(75, 145, iconv("utf-8","iso-8859-1","DESCRIÇÃO DA FREQUÊNCIA"));
+	
+
 	$pdf->Output("relatorio.pdf", 'I');
 
 ?>
+
+
+
+	<!-- $pdf->SetFont("Arial","B", 28);
+	$pdf->SetY(90); $pdf->SetX(10);
+	$pdf->Cell(188, 15, "BOTAFOGO", 0, 0, 'C'); -->
+
+<!-- $pdf->SetFont("Arial","B", 12);
+	$pdf->Text(52, 120, iconv("utf-8","iso-8859-1","Densenvolvimento Web II - Gil Eduardo de Andrade")); -->
