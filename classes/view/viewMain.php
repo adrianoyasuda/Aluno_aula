@@ -69,7 +69,7 @@
             </div>
 
             <div class='col-sm-4' style="text-align: center">
-                <button type="submit" name="acao" value="evento/">
+                <button type="submit" name="acao" value="relatorio/">
                     <img src="../../recursos/img/menu_relatorio.png">
                 </button>
             </div>

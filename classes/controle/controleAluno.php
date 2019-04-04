@@ -133,7 +133,10 @@
                     $freq = 0;
 
                     if($caso == 0){
-    					echo "<td>".$porct[0]."%</td>";
+    					echo "<td>".$objAluno->frequencia."%</td>";
+
+                        $objAluno->frequencia = $porct[0];
+                        modeloAluno::upAluno($objAluno->id, $objAluno);
                     }
 				echo "</tr>";
     		}

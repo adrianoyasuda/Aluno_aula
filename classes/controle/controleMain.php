@@ -18,8 +18,8 @@
             else if(strcmp($dados[0], "evento") == 0) {
                 controleEvento::index();
             }
-            else if(strcmp($dados[0], "certificado") == 0) {
-                controleCertificado::index();
+            else if(strcmp($dados[0], "relatorio") == 0) {
+                controleRelatorio::index();
             }
         }
     }
